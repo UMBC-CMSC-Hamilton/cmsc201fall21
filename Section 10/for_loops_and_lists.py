@@ -66,22 +66,39 @@ if False:
     # all things in range must be integers
     for index_2 in range(3, 22, 2):
         print(index_2)
+
+"""
+for some_index in range(start, stop, step):
+    do something here
+
+I want to compute the Fibonacci numbers
+
+Start at 1, 1
+Add two previous numbers
+1 + 1 = 2
+1 + 2 = 3
+2 + 3 = 5
+3 + 5 = 8
+5 + 8 = 13
+8 + 13 = 21
+13 + 21 = 34
+...
+
+1, 1, 2, 3, 5, 8, 13, 21, 34
+"""
+current = 1
+previous = 1
+before_that = 1
+
+fib = int(input('What Fibonacci number do you want? '))
+
+# sqrt(5) ** n
+for i in range(fib - 2):
+    current = previous + before_that
+    # update the previous and the before_that
+    before_that = previous
+    # set before_that before we overwrite previous
+    previous = current
     
-
-prime_test = int(input("what do you want to test for primality? "))
-# prime checker
-# i started at 2 because you can't mod by zero, it's the same as dividing by zero.
-# why can't you start at 1? because the remainder whatever/1 = whatever R 0
-
-# sentinel variable
-watch_stander = True
-
-for i in range(2, prime_test):
-    if prime_test % i == 0:
-        watch_stander = False
-
-if watch_stander:
-    print('It was prime')
-else:
-    print('It was composite')
+print(current)
 
