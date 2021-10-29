@@ -1,0 +1,10 @@
+Here is a text file.
+
+Within it are many characters.
+
+Words exist sometimes.
+
+byte= 8 bits
+bit = 0 or 1
+0110 0101
+high low
