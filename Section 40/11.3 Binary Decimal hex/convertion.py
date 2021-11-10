@@ -27,6 +27,7 @@ def dec_to_hex(number):
         if number % 16 < 10:
             current_number = str(number % 16) + current_number
         else:
+            
             current_number = hexits[number % 16] + current_number
         
         number //= 16
