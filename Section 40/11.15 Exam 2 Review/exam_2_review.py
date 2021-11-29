@@ -170,3 +170,24 @@ def get_max_values(list_of_lists):
     return max_list
 
 
+def count_a_keys(my_dict):
+    total = 0
+    for key in my_dict:
+        if key and key[0] == 'a':
+            for x in my_dict[key]:
+                total += x
+                
+    return total
+
+
+def sum_row_col(grid, x, y):
+    total = 0
+    for row in range(len(grid)):
+        for col in range(len(grid[0])):
+            if row == x or col == y:
+                total += grid[row][col]
+    return total
+
+print(sum_row_col([[8, 2], [5, 7]], 1, 0))
+print(sum_row_col([[1,2,3], [2,3,4], [3, 7, 9]], 0, 0))
+print(sum_row_col([[1,2,3], [2,3,4], [3, 7, 9]], 2, 1))

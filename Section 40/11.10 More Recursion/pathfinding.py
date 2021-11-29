@@ -77,12 +77,15 @@ def pathfinding(current_pos, prev_pos, final_pos, the_grid, visited):
         if up:
             the_grid[y][x] = 'M'
             return [current_pos] + up
+        print('backtracking to ', current_pos)
     # right
     if 0 <= x + 1 < len(the_grid[y]) and the_grid[y][x + 1] != FORBIDDEN:
         right = pathfinding((y, x + 1), current_pos, final_pos, the_grid, visited)
         if right:
             the_grid[y][x] = 'M'
             return [current_pos] + right
+
+        print('backtracking to ', current_pos)
     # down
     if 0 <= y + 1 < len(the_grid) and the_grid[y + 1][x] != FORBIDDEN:
         
@@ -90,14 +93,16 @@ def pathfinding(current_pos, prev_pos, final_pos, the_grid, visited):
         if down:
             the_grid[y][x] = 'M'
             return [current_pos] + down
-    
+
+        print('backtracking to ', current_pos)
     # left
     if 0 <= x - 1 < len(the_grid[y]) and the_grid[y][x - 1] != FORBIDDEN:
         left = pathfinding((y, x - 1), current_pos, final_pos, the_grid, visited)
         if left:
             the_grid[y][x] = 'M'
             return [current_pos] + left
-    
+
+        print('backtracking to ', current_pos)
     return False
 
 
