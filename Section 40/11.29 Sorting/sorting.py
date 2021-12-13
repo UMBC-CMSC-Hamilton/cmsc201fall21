@@ -98,6 +98,83 @@ def bogo_sort(a_list):
             return sorted_list
 
 
+def quick_sort(a_list):
+    """
+    Idea: make three lists, less_list, equal_list, greater_list
+    pick a pivot = a_list[0]
+    """
+    if len(a_list) <= 1:
+        return a_list
+    
+    less_list = []
+    equal_list = []
+    greater_list = []
+    
+    pivot = a_list[0]
+    
+    for x in a_list:
+        if x < pivot:
+            less_list.append(x)
+        elif x > pivot:
+            greater_list.append(x)
+        else:
+            equal_list.append(x)
+    
+    # print(less_list, equal_list, greater_list)
+    less_list = quick_sort(less_list)
+    greater_list = quick_sort(greater_list)
+    
+    return less_list + equal_list + greater_list
+
+
+def merge(a_list, b_list):
+    """
+    maintain two different indices and then advance them as we take elements
+    """
+    
+    a_index = 0
+    b_index = 0
+    new_list = []
+    # increment until one of the indices hits the end of its list
+    while a_index < len(a_list) and b_index < len(b_list):
+        if a_list[a_index] <= b_list[b_index]:
+            new_list.append(a_list[a_index])
+            a_index += 1
+        else:
+            new_list.append(b_list[b_index])
+            b_index += 1
+    
+    for x in range(a_index, len(a_list)):
+        new_list.append(a_list[x])
+    
+    for y in range(b_index, len(b_list)):
+        new_list.append(b_list[y])
+    
+    return new_list
+
+
+def merge_sort(a_list):
+    """
+        you have a list right?
+        divide it in half
+            merge_sort(first_half)
+            merge_sort(second_half)
+        
+        [5, 3, 8, 2]
+        [5, 3] [8, 2]
+        [5] [3] [8] [2]
+        Merge([5], [3]) = [3, 5]
+        Merge([8], [2]) = [2, 8]
+        Merge([3, 5], [2, 8])
+        
+    """
+    
+    if len(a_list) <= 1:
+        return a_list
+    half_list = len(a_list) // 2
+    return merge(merge_sort(a_list[0: half_list]), merge_sort(a_list[half_list:]))
+
+
 def test_sizes():
     for size in [10, 100, 1000, 10000]:
         new_list = make_list(size)
@@ -112,4 +189,34 @@ def test_sizes():
         print(f'Insertion sort took {time.time() - start_time} to sort {size} elements')
 
 
-print(bogo_sort([4, 3, 2, 5, 8, 4, 3, 5, 1, 3]))
+def time_test_sort(sorting_alg):
+    for size in [10, 100, 1000, 10000, 10 ** 5, 10 ** 6, 10 ** 7]:
+        new_list = make_list(size)
+        start_time = time.time()
+        sorting_alg(list(new_list))
+        print(f'{sorting_alg.__name__} took {time.time() - start_time} to sort {size} elements')
+
+
+def verify_sort(sorting_alg):
+    for size in [10, 100, 1000]:
+        test_list = make_list(size)
+        test_sorted = sorting_alg(list(test_list))
+        test_list.sort()
+        if test_sorted == test_list:
+            print('Yep')
+        else:
+            print('Nope')
+
+
+# verify_sort(merge_sort)
+
+# print(merge_sort([1, 6, 3, 4, 8, 2]) == [1, 2, 3, 4, 6, 8])
+
+# print(merge_sort([1, 2, 3, 4, 5]) == [1, 2, 3, 4, 5])
+
+# test_sizes()
+time_test_sort(quick_sort)
+time_test_sort(merge_sort)
+time_test_sort(sorted)
+
+
